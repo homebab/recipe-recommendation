@@ -16,3 +16,17 @@
 |___|  |_||_______||_______||_______||_|   |_||_|   |_||_______||_|  |__||______| |_______||___|  |_|
 
 ```
+recipe API service for the following:
+  
+- recommend recipes
+- search recipes
+
+
+### Deploy
+```shell script
+# build
+> ./gradlew build && java -jar build/libs/gs-spring-boot-docker-0.1.0.jar
+ 
+# Dockerize
+> docker-compose up --build
+```
