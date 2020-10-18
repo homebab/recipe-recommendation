@@ -35,7 +35,7 @@ class WebClientConfig {
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
     fun webClient(): WebClient = WebClient.builder()
-            .baseUrl("http://0.0.0.0:9200")
+            .baseUrl("http://es01:9200")
             .filter(logRequest())
             .filter(logResponse())
             .build()
