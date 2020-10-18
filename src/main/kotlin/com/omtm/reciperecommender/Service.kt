@@ -2,16 +2,58 @@ package com.omtm.reciperecommender
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
-import org.springframework.web.reactive.function.client.ExchangeFilterFunction
-import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.*
+import reactor.core.publisher.Mono
 
 @Service
 class Service {
 
-    private val webClient: WebClient = WebClient.create("http://0.0.0.0:9200")
+    private val logger: Logger = LoggerFactory.getLogger(javaClass)
+
+    private val webClient: WebClient = WebClient.builder()
+            .baseUrl("http://0.0.0.0:9200")
+            .filter(logRequest())
+            .filter(logResponse())
+            .build()
+
+    private fun logRequest() = { clientRequest: ClientRequest, next: ExchangeFunction ->
+        logger.info("Request: {} {}", clientRequest.method(), clientRequest.url())
+
+        clientRequest.headers()
+                .forEach { name, values ->
+                    values.forEach { value -> logger.info("{}={}", name, value) }
+                }
+        // (name, values) -> values.forEach(value -> log.info("{}={}", name, value))
+
+        next.exchange(clientRequest)
+    }
+
+
+//        logger.info("Request: {} {}", clientRequest.method(), clientRequest.url())
+//
+//        clientRequest.headers()
+//                .forEach { name, values -> values.forEach { value -> logger.info("{}={}", name, value) } }
+//        // (name, values) -> values.forEach(value -> log.info("{}={}", name, value))
+//
+//        next.exchange(clientRequest)
+
+
+    private fun logResponse() = ExchangeFilterFunction.ofResponseProcessor { clientResponse: ClientResponse ->
+        logger.info("Response: {}",
+                clientResponse
+                        .headers().asHttpHeaders()
+                        .forEach { name, values ->
+                            values.forEach { value -> logger.debug("{} : {}", name, value) }
+                        }
+        )
+
+        Mono.just(clientResponse)
+    }
 
 
     fun recommendRecipes(ingredients: String, size: Int): Flow<Any> = webClient
@@ -58,23 +100,6 @@ class Service {
             .retrieve()
             .bodyToFlux(Any::class.java)
             .asFlow()
-
-
-//    fun logRequest(): ExchangeFilterFunction {
-//        return { clientRequest, next ->
-//            log.info("Request: {} {}", clientRequest.method(), clientRequest.url());
-//            clientRequest.headers()
-//                    .forEach((name, values) -> values.forEach(value -> log.info("{}={}", name, value)));
-//            return next.exchange(clientRequest)
-//        }
-//    }
-//
-//    fun logResponse(): ExchangeFilterFunction {
-//        return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
-//            log.info("Response: {}", clientResponse.headers().asHttpHeaders().get("property-header"));
-//            return Mono.just(clientResponse);
-//        });
-//    }
 
 
 }
