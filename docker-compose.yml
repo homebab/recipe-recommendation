@@ -95,16 +95,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - 8090:8090
     networks:
       - elastic
     depends_on:
       es01:
         condition: service_healthy
       es02:
-        condition: service_healthy
+        condition: service_started
       es03:
-        condition: service_healthy
+        condition: service_started
 
 volumes:
   data01:

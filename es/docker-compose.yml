@@ -1,13 +1,13 @@
 version: '2.2'
 services:
-  es01:
+  local-es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-    container_name: es01
+    container_name: local-es01
     environment:
-      - node.name=es01
+      - node.name=local-es01
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
+      - discovery.seed_hosts=local-es02,local-es03
+      - cluster.initial_master_nodes=local-es01,local-es02,local-es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -21,14 +21,14 @@ services:
     networks:
       - elastic
 
-  es02:
+  local-es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-    container_name: es02
+    container_name: local-es02
     environment:
-      - node.name=es02
+      - node.name=local-es02
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es03
-      - cluster.initial_master_nodes=es01,es02,es03
+      - discovery.seed_hosts=local-es01,local-es03
+      - cluster.initial_master_nodes=local-es01,local-es02,local-es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -42,14 +42,14 @@ services:
     networks:
       - elastic
 
-  es03:
+  local-es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-    container_name: es03
+    container_name: local-es03
     environment:
-      - node.name=es03
+      - node.name=local-es03
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02,es03
+      - discovery.seed_hosts=local-es01,local-es02
+      - cluster.initial_master_nodes=local-es01,local-es02,local-es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -63,14 +63,14 @@ services:
     networks:
       - elastic
 
-  kib01:
+  local-kib01:
     image: docker.elastic.co/kibana/kibana:7.9.2
-    container_name: kib01
+    container_name: local-kib01
     ports:
       - 5601:5601
     environment:
-      ELASTICSEARCH_URL: http://es01:9200
-      ELASTICSEARCH_HOSTS: http://es01:9200
+      ELASTICSEARCH_URL: http://local-es01:9200
+      ELASTICSEARCH_HOSTS: http://local-es01:9200
     networks:
       - elastic
 
