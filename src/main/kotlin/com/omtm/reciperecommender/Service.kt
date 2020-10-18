@@ -15,46 +15,7 @@ class Service {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
-    private val webClient: WebClient = WebClient.builder()
-            .baseUrl("http://0.0.0.0:9200")
-            .filter(logRequest())
-            .filter(logResponse())
-            .build()
-
-    private fun logRequest() = { clientRequest: ClientRequest, next: ExchangeFunction ->
-        logger.info("Request: {} {}", clientRequest.method(), clientRequest.url())
-
-        clientRequest.headers()
-                .forEach { name, values ->
-                    values.forEach { value -> logger.info("{}={}", name, value) }
-                }
-        // (name, values) -> values.forEach(value -> log.info("{}={}", name, value))
-
-        next.exchange(clientRequest)
-    }
-
-
-//        logger.info("Request: {} {}", clientRequest.method(), clientRequest.url())
-//
-//        clientRequest.headers()
-//                .forEach { name, values -> values.forEach { value -> logger.info("{}={}", name, value) } }
-//        // (name, values) -> values.forEach(value -> log.info("{}={}", name, value))
-//
-//        next.exchange(clientRequest)
-
-
-    private fun logResponse() = ExchangeFilterFunction.ofResponseProcessor { clientResponse: ClientResponse ->
-        logger.info("Response: {}",
-                clientResponse
-                        .headers().asHttpHeaders()
-                        .forEach { name, values ->
-                            values.forEach { value -> logger.debug("{} : {}", name, value) }
-                        }
-        )
-
-        Mono.just(clientResponse)
-    }
-
+    private val webClient: WebClient = WebClientConfig().webClient()
 
     fun recommendRecipes(ingredients: String, size: Int): Flow<Any> = webClient
             .post()
