@@ -19,9 +19,12 @@ recipe API service for the following:
   
 - recommend recipes
 - search recipes
+## Keywords
+- Webflux - Reactive, Non-Blocking IO, Async
+- Kotlin - Functional, Coroutine
+- Elasticsearch
 
-
-### Get Started
+## Get Started
 - Build * Test
 ```shell script
 # build
@@ -32,7 +35,7 @@ recipe API service for the following:
 ```
 - OpenAPI: http://localhost:8090/omtm/scraper/swagger-ui.html
 
-### Deploy
+## Deploy
 - Deploy to Amazon ECS using github action 
     - path: .github/workflows/aws.yml
 - Task Definition for ECS service
