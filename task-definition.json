@@ -26,6 +26,11 @@
         {
           "hostPort": 0,
           "protocol": "tcp",
+          "containerPort": 9202
+        },
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
           "containerPort": 5601
         }
       ],
@@ -44,7 +49,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "783361761742.dkr.ecr.ap-northeast-2.amazonaws.com/omtm/recipe-recommender:9cb7e8d34f712725665ff70289d5acdfe63a2363",
+      "image": "783361761742.dkr.ecr.ap-northeast-2.amazonaws.com/omtm/recipe-recommender:9754a6cfc78bdff35810b9b50bd5232c017d638b",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -70,7 +75,7 @@
   "compatibilities": [
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:783361761742:task-definition/omtm-recipe-recommender:3",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:783361761742:task-definition/omtm-recipe-recommender:5",
   "family": "omtm-recipe-recommender",
   "requiresAttributes": [
     {
@@ -86,7 +91,7 @@
   ],
   "networkMode": "bridge",
   "cpu": null,
-  "revision": 3,
+  "revision": 5,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
