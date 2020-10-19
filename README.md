@@ -1,4 +1,3 @@
-# Recipe-Recommender
 ```
                          ______    _______  _______  ___   _______  _______  
                         |    _ |  |       ||       ||   | |       ||       | 
@@ -22,11 +21,19 @@ recipe API service for the following:
 - search recipes
 
 
-### Deploy
+### Get Started
+- Build * Test
 ```shell script
 # build
-> ./gradlew build && java -jar build/libs/gs-spring-boot-docker-0.1.0.jar
+> ./gradlew build
  
 # Dockerize
 > docker-compose up --build
 ```
+- OpenAPI: http://localhost:8090/omtm/scraper/swagger-ui.html
+
+### Deploy
+- Deploy to Amazon ECS using github action 
+    - path: .github/workflows/aws.yml
+- Task Definition for ECS service
+    - path: ./task-definition.json
