@@ -30,8 +30,8 @@ recipe API service for the following:
 # build
 > ./gradlew build
  
-# Dockerize
-> docker-compose up --build
+# test
+> docker-compose up
 ```
 - OpenAPI: http://localhost:8090/omtm/scraper/swagger-ui.html
 
