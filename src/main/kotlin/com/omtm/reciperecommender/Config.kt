@@ -3,6 +3,7 @@ package com.omtm.reciperecommender
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.info.License
+import io.swagger.v3.oas.models.servers.Server
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -16,7 +17,7 @@ class OpenApiConfig {
 
     @Bean
     fun customOpenAPI(): OpenAPI {
-        return OpenAPI()
+        return OpenAPI().servers(listOf(Server().url("http://omtmalb-1788113492.ap-northeast-2.elb.amazonaws.com/"), Server().url("/")))
                 .info(
                         Info()
                                 .title("밥심: 레시피 추천 서비스")
