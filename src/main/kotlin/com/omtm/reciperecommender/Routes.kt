@@ -20,13 +20,15 @@ class Routes {
     @Bean
     @FlowPreview
     @RouterOperations(
-            RouterOperation(path = "/recommend-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "recommendRecipes"),
-            RouterOperation(path = "/search-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "searchRecipes"),
-            RouterOperation(path = "/notify-recipe", method = [RequestMethod.GET], beanClass = Handler::class, beanMethod = "notifyRecipe")
+            RouterOperation(path = "/omtm/recipe-recommender/recommend-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "recommendRecipes"),
+            RouterOperation(path = "/omtm/recipe-recommender/search-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "searchRecipes"),
+            RouterOperation(path = "/omtm/recipe-recommender/notify-recipe", method = [RequestMethod.GET], beanClass = Handler::class, beanMethod = "notifyRecipe")
     )
     fun route(recipeHandler: Handler): RouterFunction<ServerResponse> = coRouter {
-        GET("/recommend-recipes", recipeHandler::recommendRecipes)
-        GET("/search-recipes", recipeHandler::searchRecipes)
-        GET("/notify-recipe", recipeHandler::notifyRecipe)
+        "/omtm/recipe-recommender".nest {
+            GET("/recommend-recipes", recipeHandler::recommendRecipes)
+            GET("/search-recipes", recipeHandler::searchRecipes)
+            GET("/notify-recipe", recipeHandler::notifyRecipe)
+        }
     }
 }

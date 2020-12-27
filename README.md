@@ -31,6 +31,9 @@ Recipe Recommender API service is deployed on public container instances of AWS 
 So, it is possible only on Prod to connect with AWS ES on Private Subnet. <br>
 In order words, It is impossible to connect with AWS ES on Dev. In development, we launch ES locally with docker-compose. 
 ### Dev
+- Set Environment 
+    - ES_URL=http://es01:9200
+    
 - Build * Run
 ```shell script
 # build jar file
@@ -44,6 +47,9 @@ In order words, It is impossible to connect with AWS ES on Dev. In development, 
 ### Prod
 - Deploy to Amazon ECS using github action 
     - path: .github/workflows/aws.yml
+
 - Task Definition for ECS service
     - path: ./task-definition.json
     - env: ES_URL=https://vpc-omtm-recipe-elastic-mrjubur6xsdevr3mx5nfcdqof4.ap-northeast-2.es.amazonaws.com
+
+- API Spec: http://omtmalb-1788113492.ap-northeast-2.elb.amazonaws.com/omtm/recipe-recommender/swagger-ui.html
