@@ -19,7 +19,7 @@ class OpenApiConfig {
         return OpenAPI()
                 .info(
                         Info()
-                                .title("한끼두끼: 레시피 추천 서비스")
+                                .title("밥심: 레시피 추천 서비스")
                                 .description("""
                                 ### recipe recommender service
                                 - recommend recipes
@@ -33,9 +33,10 @@ class OpenApiConfig {
 
 class WebClientConfig {
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
+    private val elasticsearchUrl: String = System.getenv()["ES_URL"] ?: throw IllegalArgumentException("set environment variable, ES_URL")
 
     fun webClient(): WebClient = WebClient.builder()
-            .baseUrl("http://es01:9200")
+            .baseUrl(elasticsearchUrl)
             .filter(logRequest())
             .filter(logResponse())
             .build()

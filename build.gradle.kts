@@ -34,6 +34,7 @@ dependencies {
 }
 
 tasks.withType<Test> {
+    environment("ES_URL", "http://es01:9200")
     useJUnitPlatform()
 }
 

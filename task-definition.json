@@ -12,32 +12,17 @@
           "hostPort": 0,
           "protocol": "tcp",
           "containerPort": 8090
-        },
-        {
-          "hostPort": 0,
-          "protocol": "tcp",
-          "containerPort": 9200
-        },
-        {
-          "hostPort": 0,
-          "protocol": "tcp",
-          "containerPort": 9201
-        },
-        {
-          "hostPort": 0,
-          "protocol": "tcp",
-          "containerPort": 9202
-        },
-        {
-          "hostPort": 0,
-          "protocol": "tcp",
-          "containerPort": 5601
         }
       ],
       "command": null,
       "linuxParameters": null,
       "cpu": 0,
-      "environment": [],
+      "environment": [
+        {
+          "name": "ES_URL",
+          "value": "https://vpc-omtm-recipe-elastic-mrjubur6xsdevr3mx5nfcdqof4.ap-northeast-2.es.amazonaws.com"
+        }
+      ],
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
@@ -49,7 +34,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "783361761742.dkr.ecr.ap-northeast-2.amazonaws.com/omtm/recipe-recommender:9754a6cfc78bdff35810b9b50bd5232c017d638b",
+      "image": "783361761742.dkr.ecr.ap-northeast-2.amazonaws.com/omtm/recipe-recommender:469570b51a6cb193dfd74d9c2beedbb6915f425c",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -75,7 +60,7 @@
   "compatibilities": [
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:783361761742:task-definition/omtm-recipe-recommender:5",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:783361761742:task-definition/omtm-recipe-recommender:7",
   "family": "omtm-recipe-recommender",
   "requiresAttributes": [
     {
@@ -91,7 +76,7 @@
   ],
   "networkMode": "bridge",
   "cpu": null,
-  "revision": 5,
+  "revision": 7,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,

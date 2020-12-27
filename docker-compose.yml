@@ -89,7 +89,21 @@ services:
     networks:
       - elastic
 
+  migration:
+    build:
+      context: migrate
+      dockerfile: Dockerfile
+    depends_on:
+      es01:
+        condition: service_healthy
+      es02:
+        condition: service_started
+      es03:
+        condition: service_started
+
   app:
+    environment:
+      - ES_URL=http://es01:9200
     stdin_open: true
     build:
       context: .
@@ -99,12 +113,14 @@ services:
     networks:
       - elastic
     depends_on:
-      es01:
-        condition: service_healthy
-      es02:
-        condition: service_started
-      es03:
-        condition: service_started
+      migration:
+          condition: service_started
+#      es01:
+#        condition: service_healthy
+#      es02:
+#        condition: service_started
+#      es03:
+#        condition: service_started
 
 volumes:
   data01:

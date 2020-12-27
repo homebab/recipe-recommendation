@@ -15,28 +15,36 @@
 |___|  |_||_______||_______||_______||_|   |_||_|   |_||_______||_|  |__||______| |_______||___|  |_|
 
 ```
-recipe API service for the following:
+recipe recommendation API service for the following:
   
 - recommend recipes
 - search recipes
-## Keywords
+
+## Intro
+#### keywords
 - Webflux - Reactive, Non-Blocking IO, Async
 - Kotlin - Functional, Coroutine
 - Elasticsearch
 
 ## Get Started
-- Build * Test
+Recipe Recommender API service is deployed on public container instances of AWS ECS. <br>
+So, it is possible only on Prod to connect with AWS ES on Private Subnet. <br>
+In order words, It is impossible to connect with AWS ES on Dev. In development, we launch ES locally with docker-compose. 
+### Dev
+- Build * Run
 ```shell script
-# build
+# build jar file
 > ./gradlew build
  
-# test
-> docker-compose up
+# build image and run locally
+> docker-compose up --build
 ```
-- OpenAPI: http://localhost:8090/omtm/scraper/swagger-ui.html
+- API Spec: http://localhost:8090/omtm/recipe-recommender/swagger-ui.html
 
-## Deploy
+### Prod
 - Deploy to Amazon ECS using github action 
     - path: .github/workflows/aws.yml
 - Task Definition for ECS service
     - path: ./task-definition.json
+    - env: ES_URL=https://vpc-omtm-recipe-elastic-mrjubur6xsdevr3mx5nfcdqof4.ap-northeast-2.es.amazonaws.com
+    
