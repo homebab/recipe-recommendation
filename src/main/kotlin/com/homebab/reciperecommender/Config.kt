@@ -1,4 +1,4 @@
-package com.omtm.reciperecommender
+package com.homebab.reciperecommender
 
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
@@ -17,7 +17,7 @@ class OpenApiConfig {
 
     @Bean
     fun customOpenAPI(): OpenAPI {
-        return OpenAPI().servers(listOf(Server().url("http://omtmalb-1788113492.ap-northeast-2.elb.amazonaws.com/"), Server().url("/")))
+        return OpenAPI().servers(listOf(Server().url("http://api.homebab.com/"), Server().url("/")))
                 .info(
                         Info()
                                 .title("HOMEBAB - Recipe Recommendation API Service")

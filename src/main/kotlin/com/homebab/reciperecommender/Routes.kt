@@ -1,4 +1,4 @@
-package com.omtm.reciperecommender
+package com.homebab.reciperecommender
 
 import kotlinx.coroutines.FlowPreview
 import org.slf4j.Logger
@@ -20,9 +20,9 @@ class Routes {
     @Bean
     @FlowPreview
     @RouterOperations(
-            RouterOperation(path = "/omtm/recipe-recommender/recommend-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "recommendRecipes"),
-            RouterOperation(path = "/omtm/recipe-recommender/search-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "searchRecipes"),
-            RouterOperation(path = "/omtm/recipe-recommender/notify-recipe", method = [RequestMethod.GET], beanClass = Handler::class, beanMethod = "notifyRecipe")
+            RouterOperation(path = "/recipe-recommender/recommend-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "recommendRecipes"),
+            RouterOperation(path = "/recipe-recommender/search-recipes", method = [RequestMethod.GET], beanClass = Service::class, beanMethod = "searchRecipes"),
+            RouterOperation(path = "/recipe-recommender/notify-recipe", method = [RequestMethod.GET], beanClass = Handler::class, beanMethod = "notifyRecipe")
     )
     fun route(recipeHandler: Handler): RouterFunction<ServerResponse> = coRouter {
         "/omtm/recipe-recommender".nest {

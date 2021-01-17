@@ -1,4 +1,4 @@
-package com.omtm.reciperecommender
+package com.homebab.reciperecommender
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow

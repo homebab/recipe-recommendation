@@ -1,4 +1,4 @@
-package com.omtm.reciperecommender
+package com.homebab.reciperecommender
 
 import kotlinx.coroutines.FlowPreview
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,4 +1,4 @@
-package com.omtm.reciperecommender
+package com.homebab.reciperecommender
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
 import io.swagger.v3.oas.annotations.servers.Server

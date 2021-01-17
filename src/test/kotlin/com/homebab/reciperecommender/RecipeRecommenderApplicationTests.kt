@@ -1,4 +1,4 @@
-package com.omtm.reciperecommender
+package com.homebab.reciperecommender
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
