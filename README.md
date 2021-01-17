@@ -42,7 +42,7 @@ In order words, It is impossible to connect with AWS ES on Dev. In development, 
 # build image and run locally
 > docker-compose up --build
 ```
-- API Spec: http://localhost:8090/omtm/recipe-recommender/swagger-ui.html
+- API Spec: http://localhost:8090/recipe-recommender/swagger-ui.html
 
 ### Prod
 - Deploy to Amazon ECS using github action 
