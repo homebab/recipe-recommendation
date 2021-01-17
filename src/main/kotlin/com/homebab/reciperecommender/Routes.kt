@@ -25,7 +25,7 @@ class Routes {
             RouterOperation(path = "/recipe-recommender/notify-recipe", method = [RequestMethod.GET], beanClass = Handler::class, beanMethod = "notifyRecipe")
     )
     fun route(recipeHandler: Handler): RouterFunction<ServerResponse> = coRouter {
-        "/omtm/recipe-recommender".nest {
+        "/recipe-recommender".nest {
             GET("/recommend-recipes", recipeHandler::recommendRecipes)
             GET("/search-recipes", recipeHandler::searchRecipes)
             GET("/notify-recipe", recipeHandler::notifyRecipe)
