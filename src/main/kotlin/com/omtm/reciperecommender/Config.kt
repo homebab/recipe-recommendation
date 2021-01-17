@@ -20,9 +20,8 @@ class OpenApiConfig {
         return OpenAPI().servers(listOf(Server().url("http://omtmalb-1788113492.ap-northeast-2.elb.amazonaws.com/"), Server().url("/")))
                 .info(
                         Info()
-                                .title("밥심: 레시피 추천 서비스")
+                                .title("HOMEBAB: Recipe Recommendation API Service")
                                 .description("""
-                                ### recipe recommender service
                                 - recommend recipes
                                 - search recipes
                             """.trimIndent())
