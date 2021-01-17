@@ -52,4 +52,5 @@ In order words, It is impossible to connect with AWS ES on Dev. In development, 
     - path: ./task-definition.json
     - env: ES_URL=https://vpc-omtm-recipe-elastic-mrjubur6xsdevr3mx5nfcdqof4.ap-northeast-2.es.amazonaws.com
 
-- API Spec: http://omtmalb-1788113492.ap-northeast-2.elb.amazonaws.com/omtm/recipe-recommender/swagger-ui.html
+- API Spec
+    - http://api.homebab.com/recipe-recommender/swagger-ui.html
