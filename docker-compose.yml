@@ -101,20 +101,20 @@ services:
       es03:
         condition: service_started
 
-  app:
-    environment:
-      - ES_URL=http://es01:9200
-    stdin_open: true
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 8090:8090
-    networks:
-      - elastic
-    depends_on:
-      migration:
-          condition: service_started
+#  app:
+#    environment:
+#      - ES_URL=http://es01:9200
+#    stdin_open: true
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - 8090:8090
+#    networks:
+#      - elastic
+#    depends_on:
+#      migration:
+#          condition: service_started
 #      es01:
 #        condition: service_healthy
 #      es02:

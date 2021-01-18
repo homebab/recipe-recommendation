@@ -39,7 +39,7 @@ class Handler(@Autowired private val service: Service) {
     suspend fun notifyRecipe(request: ServerRequest): ServerResponse {
         return ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValueAndAwait(Recipe("김치찌개", "맛있게 끓인다"))
+                .bodyValueAndAwait(RecipeTemp("김치찌개", "맛있게 끓인다"))
     }
 
 }

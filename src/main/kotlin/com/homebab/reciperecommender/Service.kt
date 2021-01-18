@@ -4,10 +4,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.*
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
@@ -17,11 +19,12 @@ class Service {
 
     private val webClient: WebClient = WebClientConfig().webClient()
 
-    fun recommendRecipes(ingredients: String, size: Int): Flow<Any> = webClient
-            .post()
-            .uri("/omtm/recipe/_search")
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .bodyValue("""
+    fun recommendRecipes(ingredients: String, size: Int): Flow<Recipe> = webClient
+        .post()
+        .uri("/omtm/recipe/_search")
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .bodyValue(
+            """
                 {
                   "query": {
                     "function_score": {
@@ -38,16 +41,22 @@ class Service {
                   },
                   "size": $size
                 }
-            """.trimIndent())
-            .retrieve()
-            .bodyToFlux(Any::class.java)
-            .asFlow()
+            """.trimIndent()
+        )
+        .retrieve()
+        .bodyToMono(ESResponse::class.java)
+        .flatMapMany { response ->
+            val hits: List<Recipe> = response.hits.hits.map { insideHits -> insideHits._source }
+            Flux.fromIterable(hits)
+        }
+        .asFlow()
 
     fun searchRecipes(keywords: String, size: Int): Flow<Any> = webClient
-            .post()
-            .uri("/omtm/recipe/_search")
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .bodyValue("""
+        .post()
+        .uri("/omtm/recipe/_search")
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .bodyValue(
+            """
                 {
                   "query": {
                     "multi_match": {
@@ -57,10 +66,11 @@ class Service {
                   },
                   "size": $size
                 }
-            """.trimIndent())
-            .retrieve()
-            .bodyToFlux(Any::class.java)
-            .asFlow()
+            """.trimIndent()
+        )
+        .retrieve()
+        .bodyToFlux(Any::class.java)
+        .asFlow()
 
 
 }
