@@ -19,7 +19,7 @@ class Service {
 
     private val webClient: WebClient = WebClientConfig().webClient()
 
-    fun recommendRecipes(ingredients: String, size: Int): Flow<Recipe> = webClient
+    fun recommendRecipes(ingredients: String, size: Int): Flow<Hits> = webClient
         .post()
         .uri("/omtm/recipe/_search")
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -46,7 +46,7 @@ class Service {
         .retrieve()
         .bodyToMono(ESResponse::class.java)
         .flatMapMany { response ->
-            val hits: List<Recipe> = response.hits.hits.map { insideHits -> insideHits._source }
+            val hits: List<Hits> = response.hits.hits // .map { insideHits -> insideHits._source }
             Flux.fromIterable(hits)
         }
         .asFlow()
