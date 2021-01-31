@@ -19,7 +19,8 @@ class Handler(@Autowired private val service: Service) {
                             service.recommendRecipes(
                                     // TODO: validator
                                     request.queryParam("ingredients").orElseThrow(),
-                                    request.queryParam("size").orElseThrow().toInt()
+                                    request.queryParam("from").orElse("0").toInt(),
+                                    request.queryParam("size").orElse("12").toInt()
                             )
                     )
 
@@ -32,7 +33,8 @@ class Handler(@Autowired private val service: Service) {
                             service.searchRecipes(
                                     // TODO: validator
                                     request.queryParam("keywords").orElseThrow(),
-                                    request.queryParam("size").orElseThrow().toInt()
+                                    request.queryParam("from").orElse("0").toInt(),
+                                    request.queryParam("size").orElse("12").toInt()
                             )
                     )
 

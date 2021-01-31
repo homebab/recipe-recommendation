@@ -35,12 +35,11 @@ In order words, It is impossible to connect with AWS ES on Dev. In development, 
     - ES_URL=http://es01:9200
     
 - Build * Run
-```shell script
-# build jar file
-> ./gradlew build
- 
-# build image and run locally
+```shell script 
+# build image -> run elasticsearch -> migrate recipe data
 > docker-compose up --build
+
+# run server
 ```
 - API Spec: http://localhost:8090/recipe-recommender/swagger-ui.html
 

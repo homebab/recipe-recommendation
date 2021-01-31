@@ -14,12 +14,9 @@ import reactor.core.publisher.Mono
 
 @Service
 class Service {
-
-    private val logger: Logger = LoggerFactory.getLogger(javaClass)
-
     private val webClient: WebClient = WebClientConfig().webClient()
 
-    fun recommendRecipes(ingredients: String, size: Int): Flow<Hits> = webClient
+    fun recommendRecipes(ingredients: String, from: Int, size: Int): Flow<Hits> = webClient
         .post()
         .uri("/omtm/recipe/_search")
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -33,12 +30,10 @@ class Service {
                           "query": "$ingredients",
                           "fields": ["description","title^0.5"]
                         }
-                      },
-                      "random_score": {
-                        "field": "_seq_no"
                       }
                     }
                   },
+                  "from": $from,
                   "size": $size
                 }
             """.trimIndent()
@@ -51,7 +46,7 @@ class Service {
         }
         .asFlow()
 
-    fun searchRecipes(keywords: String, size: Int): Flow<Any> = webClient
+    fun searchRecipes(keywords: String, from: Int, size: Int): Flow<Any> = webClient
         .post()
         .uri("/omtm/recipe/_search")
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -64,6 +59,7 @@ class Service {
                       "fields": ["description","title^0.5"]
                     }
                   },
+                  "from": $from,
                   "size": $size
                 }
             """.trimIndent()
