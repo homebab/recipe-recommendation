@@ -13,6 +13,7 @@ curl -X POST "localhost:9200/omtm/recipe/_search" -H 'Content-Type: application/
       }
     }
   },
-  "size": 2
+  "size": 1,
+  "from": 0
 }
 '
